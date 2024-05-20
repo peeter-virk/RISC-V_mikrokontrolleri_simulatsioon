@@ -4,6 +4,6 @@ authors:
   - family-names: "Virk"
     given-names: "Peeter"
 title: "RISC-V põineva mikrokontrolleri simulatsiooni failid"
-version: 2.0.4
+version: 1.0.0
 date-released: 2024-05-20
 url: "https://github.com/peeter-virk/RISC-V_mikrokontrolleri_simulatsioon"
