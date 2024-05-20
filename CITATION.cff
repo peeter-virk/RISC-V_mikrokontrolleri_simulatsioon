@@ -3,6 +3,7 @@ message: "If you use this software, please cite it as below."
 authors:
   - family-names: "Virk"
     given-names: "Peeter"
+title: "RISC-V põineva mikrokontrolleri simulatsiooni failid"
 version: 2.0.4
 date-released: 2024-05-20
 url: "https://github.com/peeter-virk/RISC-V_mikrokontrolleri_simulatsioon"
