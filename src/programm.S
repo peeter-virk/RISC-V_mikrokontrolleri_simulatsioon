@@ -1,36 +1,21 @@
 .section .text
-.globl _start
-_start:
-    # Test ADD
-    li x5, 10         # Laeb väärtuse 10 registrisse x5
-    li x6, 5          # Laeb väärtuse 5 registrisse x6
-    add x7, x5, x6    # Liitmistehe x7 = x5 + x6
-    li x4, 0x4000     # Laeb mäluaadressi registrisse x4
-    sw x7, 0(x4)      # Salvesta tulemuse mällu (15)
+.global main
+main:
+    # Define the base address of the timer in a register
+    li t0, 0x1014           # Load timer base address into t0
 
-    # Test SUB
-    sub x7, x5, x6    # Liitmistehe x7 = x5 - x6
-    li x4, 0x4004     # Laeb mäluaadressi registrisse x4
-    sw x7, 0(x4)      # Salvesta tulemuse mällu (5)
+    # Set OCR0 to 10
+    li t1, 10               # Load value 10 into t1
+    sw t1, 0x08(t0)         # Store 10 into OCR0 (base address + 0x08)
 
-    # Test AND
-    li x6, 7          # Laeb väärtuse 7 registrisse x6
-    and x7, x5, x6    # Teosta loogiline korrutis (AND) x7 = x5 & x6
-    li x4, 0x4008     # laeb mäluaadressi registrisse x4
-    sw x7, 0(x4)      # Salvesta tulemus mällu (2)
+    # Configure the control register
+    li t1, 0x20000041       # Bitfield:
+                            # - Enable timer (bit 0 = 1)
+                            # - Clock source = MCU clock (bits 3-4 = 00)
+                            # - Reset on OCR match (bit 6 = 1)
+                            # - Exception on OCR0 match (bit 29 = 1)
+    sw t1, 0x00(t0)         # Store the control register configuration
 
-    # Test OR
-    or x7, x5, x6    # Teosta loogiline liitmistehe (OR) x7 = x5 | x6
-    li x4, 0x400c     # laeb mäluaadressi registrisse x4
-    sw x7, 0(x4)     # Salvesta tulemus mällu (15)
-
-    # Test XOR
-    xor x7, x5, x6    # Teosta Välistav disjunktsioon (XOR) x7 = x5 ^ x6
-    li x4, 0x4010     # laeb mäluaadressi registrisse x4
-    sw x7, 0(x4)     # Salvesta tulemus mällu (13)
-
-
-    # Programmi lõpp
-    ebreak
-
-
+    # Infinite loop to keep program running
+loop:
+    j loop

@@ -6,60 +6,77 @@ RISCV_OBJCOPY = /opt/riscv/riscv32-unknown-elf/bin/objcopy
 RISCV_OBJDUMP = /opt/riscv/riscv32-unknown-elf/bin/objdump
 RISCV_LD = /opt/riscv/riscv32-unknown-elf/bin/ld
 
-
+# File extensions
+# Faililaiendid
 OBJEXT := .o
-
 BINEXT := .bin
+ELFEXT := .elf
+DUMPEXT := .dump
 
-LINKER_SCRIPT = linker_script.ld
-
-
+# Directories
+# Kaustad
 BUILD_DIR := build
-
-PROGRAM_NAME ?= tarkvara
-
-
-TEXT_TARGET := $(PROGRAM_NAME)_text$(BINEXT)
-DATA_TARGET := $(PROGRAM_NAME)_data$(BINEXT)
-
 SRC_DIRS := src
 
-# Leiab kõik assembli failid
+
+# Program name
+# Programmi nimi
+PROGRAM_NAME ?= tarkvara
+
+# Linker script
+# Linker skript
+LINKER_SCRIPT = linker.ld
+
+# remenents of older versions of the makefile
+#STARTUP_FILE := src/startup.S
+#STARTUP_OBJ := $(BUILD_DIR)/startup$(OBJEXT)
+
+
+# Target files
+# Sihtfailid
+TEXT_TARGET := $(BUILD_DIR)/$(PROGRAM_NAME)_text
+DATA_TARGET := $(BUILD_DIR)/$(PROGRAM_NAME)_data
+
+
 # Finds all ASM files
+# Leiab kõik assembli failid
 SRC_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.S))
 
-KEEP_OBJECTS ?= yes
-TEXT_OBJ_FILE := $(BUILD_DIR)/$(PROGRAM_NAME)_text$(OBJEXT)
-DATA_OBJ_FILE := $(BUILD_DIR)/$(PROGRAM_NAME)_data$(OBJEXT)
+# Object file
+# Objekti fail
+OBJ_FILE := $(BUILD_DIR)/$(PROGRAM_NAME)$(OBJEXT)
+
+# Final binary
+FINAL_BINARY := $(BUILD_DIR)/$(PROGRAM_NAME)$(BINEXT)
 
 
-all: $(TEXT_TARGET) $(DATA_TARGET)
+# Phony targets
+.PHONY: all clean disassemble
 
 
-$(TEXT_OBJ_FILE): $(SRC_FILES) | $(BUILD_DIR)
-	$(RISCV_AS) -o $(TEXT_OBJ_FILE) --gdwarf-2 -march=rv32i $^
+# Default target
+all: $(FINAL_BINARY)
 
-$(DATA_OBJ_FILE): $(SRC_FILES) | $(BUILD_DIR)
-	$(RISCV_AS) -o $(DATA_OBJ_FILE) --gdwarf-2 -march=rv32i $^
+# Assemble the startup file first
+$(STARTUP_OBJ): $(STARTUP_FILE) | $(BUILD_DIR)
+	$(RISCV_AS) -o $@ --gdwarf-2 -march=rv32i $<
+
+# Assemble all source files into a single object file
+$(OBJ_FILE): $(SRC_FILES) | $(BUILD_DIR)
+	$(RISCV_AS) -o $@ --gdwarf-2 -march=rv32i $^
+
+# Link all sections into a single ELF file and generate a final binary
+$(FINAL_BINARY): $(OBJ_FILE) $(LINKER_SCRIPT)
+	$(RISCV_LD) -nostdlib -T $(LINKER_SCRIPT) $(OBJ_FILE) -o $(BUILD_DIR)/$(PROGRAM_NAME)$(ELFEXT)
+	$(RISCV_OBJCOPY) -O binary $(BUILD_DIR)/$(PROGRAM_NAME)$(ELFEXT) $@
 
 
-$(TEXT_TARGET): $(TEXT_OBJ_FILE) $(LINKER_SCRIPT)
-	$(RISCV_LD) -nostdlib -T $(LINKER_SCRIPT) $(TEXT_OBJ_FILE) -o $(BUILD_DIR)/$(TEXT_TARGET).elf
-	$(RISCV_OBJCOPY) -O binary --only-section=.text $(BUILD_DIR)/$(TEXT_TARGET).elf $(BUILD_DIR)/$(TEXT_TARGET)
-
-$(DATA_TARGET): $(DATA_OBJ_FILE) $(LINKER_SCRIPT)
-	$(RISCV_LD) -nostdlib -T $(LINKER_SCRIPT) $(DATA_OBJ_FILE) -o $(BUILD_DIR)/$(DATA_TARGET).elf
-	$(RISCV_OBJCOPY) -O binary --only-section=.data $(BUILD_DIR)/$(DATA_TARGET).elf $(BUILD_DIR)/$(DATA_TARGET)
-
-
-disassemble: $(TEXT_OBJ_FILE) $(DATA_OBJ_FILE)
-	$(RISCV_OBJDUMP) -d $(TEXT_OBJ_FILE) > $(BUILD_DIR)/$(PROGRAM_NAME)_text.dump
-	$(RISCV_OBJDUMP) -d $(DATA_OBJ_FILE) > $(BUILD_DIR)/$(PROGRAM_NAME)_data.dump
+# Generate disassembly for debugging
+disassemble: $(OBJ_FILE)
+	$(RISCV_OBJDUMP) -d $(OBJ_FILE) > $(BUILD_DIR)/$(PROGRAM_NAME)$(DUMPEXT)
 
 clean:
 	rm -rf $(BUILD_DIR)
 
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
-
-.PHONY: all clean disassemble
