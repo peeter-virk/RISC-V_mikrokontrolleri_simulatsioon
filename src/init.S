@@ -3,18 +3,18 @@
 .extern _TIMER0_OCR0_MATCH_ISR
 .extern _TIMER0_OCR1_MATCH_ISR
 .extern _TIMER0_OVERFLOW_ISR
-.extern _setup
+.extern _RESET
 
 .section .text
 .global _start
-.global _setup
+.global _RESET
 
 
 
 # ISR vector table
 _start:
     .org 0
-    j _setup
+    j _RESET
     .org 0x4
     j _VJKA_ISR
     .org 0x8
@@ -42,6 +42,6 @@ _start:
     .org 0x30
     j _TIMER0_OVERFLOW_ISR
 
-_setup:
+_RESET:
     la sp, _stack_top
     j main
