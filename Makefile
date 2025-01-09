@@ -83,7 +83,7 @@ $(DATA_TARGET): $(FINAL_ELF)
 
 # Generate disassembly for debugging
 disassemble: $(FINAL_ELF)
-	$(RISCV_OBJDUMP) -d $< > $(BUILD_DIR)/$(PROGRAM_NAME)$(DUMPEXT)
+	$(RISCV_OBJDUMP) -D $< > $(BUILD_DIR)/$(PROGRAM_NAME)$(DUMPEXT)
 
 clean:
 	rm -rf $(BUILD_DIR)
