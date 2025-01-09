@@ -9,7 +9,7 @@
 #define TIMER_INTERRUPT   (*(volatile uint32_t *)INTERRUPT_VECTOR)
 
 // Constants
-#define CLOCK_FREQUENCY   1000000  // Assume 1 MHz clock
+#define CLOCK_FREQUENCY   128  // Assume 1 MHz clock
 #define SECONDS_TO_TICKS(sec) ((sec) * CLOCK_FREQUENCY)  // Convert seconds to clock ticks
 
 // Global variable incremented by the interrupt
@@ -29,13 +29,15 @@ int main() {
     // Set the timer compare value to 5 seconds (in ticks)
     TIMER_OCR0 = SECONDS_TO_TICKS(5);
 
+    TIMER_COUNTER = 0;
+
     // Configure the timer:
     // - Enable timer (b0 = 1)
     // - Clock division: clock/1 (b1-b2 = 00)
     // - Standard clock input (b3-b4 = 00)
-    // - Increment mode (b5 = 1)
     // - Reset on OCR match (b6-b7 = 01)
-    TIMER_CTRL = (1 << 0) | (1 << 5) | (1 << 6);
+    // - OCR0 Interupt enable (b29 = 1)
+    TIMER_CTRL = (1 << 0) | (1 << 6) | (1<<29);
 
     // Enable OCR interrupt in the microcontroller
     TIMER_INTERRUPT = (1 << 0);  // Assuming b0 enables OCR interrupt

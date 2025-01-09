@@ -44,4 +44,6 @@ _start:
 
 _RESET:
     la sp, _stack_top
+    li t0, 0x8 # MIE bit is at bit position 3 (binary 1000)
+    csrs mstatus, t0
     j main
