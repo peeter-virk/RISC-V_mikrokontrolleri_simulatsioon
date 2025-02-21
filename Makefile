@@ -23,7 +23,8 @@ SRC_DIRS := src
 # Programmi nimi
 PROGRAM_NAME ?= tarkvara
 
-OPT_LEVEL = -o0
+OPT_LEVEL =  -Os
+ARCHITECTURE_TYPE = rv32im
 
 # Linker script
 # Linker skript
@@ -58,16 +59,16 @@ all: $(TEXT_TARGET) $(DATA_TARGET) $(OBJ_C)
 # Compile C files into object files
 $(BUILD_DIR)/%.o: $(SRC_DIRS)/%.c | $(BUILD_DIR)
 	$(info Compiling $< to $@)
-	$(RISCV_CC) -c -o $@ -march=rv32im -mabi=ilp32 -mno-strict-align $<
+	$(RISCV_CC) -c -o $@ -march=$(ARCHITECTURE_TYPE) -mabi=ilp32 -mno-strict-align $(OPT_LEVEL) $<
 
 # Compile CPP files into object files
 $(BUILD_DIR)/%.o: $(SRC_DIRS)/%.cpp | $(BUILD_DIR)
 	$(info Compiling $< to $@)
-	$(RISCV_CPP) -c -o $@ -march=rv32im -mabi=ilp32 -mno-strict-align $(OPT_LEVEL) $<
+	$(RISCV_CPP) -c -o $@ -march=$(ARCHITECTURE_TYPE) -mabi=ilp32 -mno-strict-align $(OPT_LEVEL) $<
 
 # Assemble assembly files
 $(BUILD_DIR)/%.o: $(SRC_DIRS)/%.S | $(BUILD_DIR)
-	$(RISCV_AS) -o $@ --gdwarf-2 -march=rv32im $^
+	$(RISCV_AS) -o $@ --gdwarf-2 -march=$(ARCHITECTURE_TYPE) $^
 
 # Link all sections into a single ELF file
 $(FINAL_ELF): $(OBJ_ASM) $(OBJ_C) $(OBJ_CPP) | $(BUILD_DIR)
@@ -93,7 +94,7 @@ debug:
 	$(info SRC_CPP = $(SRC_CPP))
 	$(info OBJ_C = $(OBJ_C))
 	$(info OBJ_CPP = $(OBJ_CPP))
-	$(RISCV_CC) -c -o build/bubble.o -march=rv32i -mabi=ilp32 src/bubble.c
+	$(RISCV_CC) -c -o build/bubble.o -march=$(ARCHITECTURE_TYPE) -mabi=ilp32 src/bubble.c
 
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)

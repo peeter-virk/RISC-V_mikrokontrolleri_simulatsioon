@@ -9300,32 +9300,32 @@
     <comp lib="8" loc="(4370,930)" name="Text">
       <a name="text" val="BLT"/>
     </comp>
-    <comp lib="8" loc="(4410,140)" name="Text">
-      <a name="text" val="B type (branch)"/>
-    </comp>
-    <comp lib="8" loc="(442,4987)" name="Text">
+    <comp lib="8" loc="(440,4985)" name="Text">
       <a name="text" val="MUL"/>
     </comp>
-    <comp lib="8" loc="(442,5387)" name="Text">
+    <comp lib="8" loc="(440,5385)" name="Text">
       <a name="text" val="MULH"/>
     </comp>
-    <comp lib="8" loc="(442,5787)" name="Text">
+    <comp lib="8" loc="(440,5785)" name="Text">
       <a name="text" val="MULHU"/>
     </comp>
-    <comp lib="8" loc="(442,6187)" name="Text">
+    <comp lib="8" loc="(440,6185)" name="Text">
       <a name="text" val="MULHSU"/>
     </comp>
-    <comp lib="8" loc="(442,6587)" name="Text">
+    <comp lib="8" loc="(440,6585)" name="Text">
       <a name="text" val="DIVU"/>
     </comp>
-    <comp lib="8" loc="(442,6987)" name="Text">
+    <comp lib="8" loc="(440,6985)" name="Text">
       <a name="text" val="REMU"/>
     </comp>
-    <comp lib="8" loc="(442,7387)" name="Text">
+    <comp lib="8" loc="(440,7385)" name="Text">
       <a name="text" val="DIV"/>
     </comp>
-    <comp lib="8" loc="(442,7787)" name="Text">
+    <comp lib="8" loc="(440,7785)" name="Text">
       <a name="text" val="REM"/>
+    </comp>
+    <comp lib="8" loc="(4410,140)" name="Text">
+      <a name="text" val="B type (branch)"/>
     </comp>
     <comp lib="8" loc="(4900,295)" name="Text">
       <a name="text" val="WFI"/>
@@ -12116,7 +12116,7 @@
     <comp lib="0" loc="(2820,1470)" name="Splitter">
       <a name="bit0" val="none"/>
       <a name="bit1" val="none"/>
-      <a name="bit10" val="0"/>
+      <a name="bit10" val="none"/>
       <a name="bit11" val="none"/>
       <a name="bit12" val="none"/>
       <a name="bit13" val="none"/>
@@ -12145,7 +12145,7 @@
       <a name="bit6" val="none"/>
       <a name="bit7" val="0"/>
       <a name="bit8" val="0"/>
-      <a name="bit9" val="0"/>
+      <a name="bit9" val="none"/>
       <a name="facing" val="north"/>
       <a name="fanout" val="1"/>
       <a name="incoming" val="32"/>
@@ -12170,8 +12170,8 @@
       <a name="bit24" val="1"/>
       <a name="bit25" val="0"/>
       <a name="bit26" val="0"/>
-      <a name="bit27" val="0"/>
-      <a name="bit28" val="0"/>
+      <a name="bit27" val="1"/>
+      <a name="bit28" val="1"/>
       <a name="bit29" val="1"/>
       <a name="bit3" val="1"/>
       <a name="bit30" val="1"/>
@@ -12209,8 +12209,8 @@
       <a name="bit24" val="1"/>
       <a name="bit25" val="0"/>
       <a name="bit26" val="0"/>
-      <a name="bit27" val="0"/>
-      <a name="bit28" val="0"/>
+      <a name="bit27" val="1"/>
+      <a name="bit28" val="1"/>
       <a name="bit29" val="1"/>
       <a name="bit3" val="1"/>
       <a name="bit30" val="1"/>
@@ -12318,16 +12318,16 @@
     <comp lib="1" loc="(3190,1880)" name="AND Gate">
       <a name="negate0" val="true"/>
       <a name="size" val="30"/>
-      <a name="width" val="4"/>
+      <a name="width" val="2"/>
     </comp>
     <comp lib="1" loc="(3200,1850)" name="AND Gate">
       <a name="facing" val="south"/>
       <a name="size" val="30"/>
-      <a name="width" val="4"/>
+      <a name="width" val="2"/>
     </comp>
     <comp lib="1" loc="(3260,1870)" name="OR Gate">
       <a name="size" val="30"/>
-      <a name="width" val="4"/>
+      <a name="width" val="2"/>
     </comp>
     <comp lib="1" loc="(3400,1900)" name="AND Gate">
       <a name="facing" val="north"/>
@@ -13074,7 +13074,6 @@ f2f746e3 13 13 2c12403 3010113 8067 ff010113 112623
       <a name="output" val="true"/>
       <a name="width" val="4"/>
     </comp>
-    <comp lib="0" loc="(2090,980)" name="Ground"/>
     <comp lib="0" loc="(2140,1020)" name="Splitter">
       <a name="appear" val="right"/>
       <a name="bit0" val="none"/>
@@ -13084,8 +13083,8 @@ f2f746e3 13 13 2c12403 3010113 8067 ff010113 112623
       <a name="bit12" val="none"/>
       <a name="bit13" val="0"/>
       <a name="bit14" val="0"/>
-      <a name="bit15" val="0"/>
-      <a name="bit16" val="0"/>
+      <a name="bit15" val="none"/>
+      <a name="bit16" val="none"/>
       <a name="bit17" val="none"/>
       <a name="bit18" val="none"/>
       <a name="bit19" val="none"/>
@@ -13117,19 +13116,17 @@ f2f746e3 13 13 2c12403 3010113 8067 ff010113 112623
       <a name="facing" val="west"/>
       <a name="label" val="Viigud_valja"/>
       <a name="output" val="true"/>
-      <a name="width" val="4"/>
+      <a name="width" val="2"/>
     </comp>
     <comp lib="0" loc="(2160,1000)" name="Splitter">
       <a name="facing" val="north"/>
-      <a name="fanout" val="4"/>
-      <a name="incoming" val="4"/>
     </comp>
     <comp lib="0" loc="(2160,1030)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="facing" val="west"/>
       <a name="label" val="Viigu_kontroll"/>
       <a name="output" val="true"/>
-      <a name="width" val="4"/>
+      <a name="width" val="2"/>
     </comp>
     <comp lib="0" loc="(380,1240)" name="Pin">
       <a name="appearance" val="NewPins"/>
@@ -13150,7 +13147,7 @@ f2f746e3 13 13 2c12403 3010113 8067 ff010113 112623
     <comp lib="0" loc="(390,1270)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="label" val="Viigud_sisse"/>
-      <a name="width" val="4"/>
+      <a name="width" val="2"/>
     </comp>
     <comp lib="0" loc="(390,1300)" name="Pin">
       <a name="appearance" val="NewPins"/>
@@ -13174,18 +13171,9 @@ f2f746e3 13 13 2c12403 3010113 8067 ff010113 112623
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(470,990)" name="Splitter">
-      <a name="bit2" val="none"/>
-      <a name="bit3" val="none"/>
-      <a name="incoming" val="4"/>
       <a name="spacing" val="2"/>
     </comp>
-    <comp lib="0" loc="(860,1180)" name="Splitter">
-      <a name="bit0" val="none"/>
-      <a name="bit1" val="none"/>
-      <a name="bit2" val="0"/>
-      <a name="bit3" val="1"/>
-      <a name="incoming" val="4"/>
-    </comp>
+    <comp lib="0" loc="(860,1180)" name="Splitter"/>
     <comp lib="0" loc="(890,1100)" name="Splitter">
       <a name="bit0" val="none"/>
       <a name="bit1" val="none"/>
@@ -13430,7 +13418,7 @@ f2f746e3 13 13 2c12403 3010113 8067 ff010113 112623
       <a name="text" val="12 - enkoodri suuna valik"/>
     </comp>
     <comp lib="8" loc="(930,1550)" name="Text">
-      <a name="text" val="[13-16] - väljundviigu kontroll"/>
+      <a name="text" val="[13-14] - väljundviigu kontroll"/>
     </comp>
     <comp loc="(1210,640)" name="OCR">
       <a name="label" val="OCR0"/>
@@ -13631,8 +13619,6 @@ f2f746e3 13 13 2c12403 3010113 8067 ff010113 112623
     <wire from="(1930,720)" to="(2150,720)"/>
     <wire from="(1930,810)" to="(2140,810)"/>
     <wire from="(1980,510)" to="(2010,510)"/>
-    <wire from="(2090,980)" to="(2120,980)"/>
-    <wire from="(2120,980)" to="(2130,980)"/>
     <wire from="(2140,810)" to="(2140,980)"/>
     <wire from="(2150,720)" to="(2150,980)"/>
     <wire from="(380,1240)" to="(740,1240)"/>
