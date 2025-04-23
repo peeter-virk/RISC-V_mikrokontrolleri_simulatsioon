@@ -89,12 +89,5 @@ disassemble: $(FINAL_ELF)
 clean:
 	rm -rf $(BUILD_DIR)
 
-debug:
-	$(info SRC_C = $(SRC_C))
-	$(info SRC_CPP = $(SRC_CPP))
-	$(info OBJ_C = $(OBJ_C))
-	$(info OBJ_CPP = $(OBJ_CPP))
-	$(RISCV_CC) -c -o build/bubble.o -march=$(ARCHITECTURE_TYPE) -mabi=ilp32 src/bubble.c
-
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
