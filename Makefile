@@ -24,7 +24,8 @@ SRC_DIRS := src
 PROGRAM_NAME ?= tarkvara
 
 OPT_LEVEL =  -Os
-ARCHITECTURE_TYPE = rv32im
+ARCHITECTURE_TYPE = rv32im_zicsr
+CFLAGS = -mabi=ilp32 -mno-strict-align -ffunction-sections -mno-explicit-relocs
 
 # Linker script
 # Linker skript
@@ -37,9 +38,9 @@ DATA_TARGET := $(BUILD_DIR)/$(PROGRAM_NAME)_data$(BINEXT)
 
 # Finds all ASM files
 # Leiab kõik assembli failid
-SRC_ASM := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.S))
-SRC_C := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
-SRC_CPP := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.cpp))
+SRC_ASM := $(shell find $(SRC_DIRS) -type f -name "*.S")
+SRC_C   := $(shell find $(SRC_DIRS) -type f -name "*.c")
+SRC_CPP := $(shell find $(SRC_DIRS) -type f -name "*.cpp")
 
 # Object file
 # Objekti fail
@@ -59,15 +60,18 @@ all: $(TEXT_TARGET) $(DATA_TARGET) $(OBJ_C)
 # Compile C files into object files
 $(BUILD_DIR)/%.o: $(SRC_DIRS)/%.c | $(BUILD_DIR)
 	$(info Compiling $< to $@)
-	$(RISCV_CC) -c -o $@ -march=$(ARCHITECTURE_TYPE) -mabi=ilp32 -mno-strict-align $(OPT_LEVEL) $<
+	@mkdir -p $(dir $@)
+	$(RISCV_CC) -c -o $@ -march=$(ARCHITECTURE_TYPE) $(CFLAGS) $(OPT_LEVEL) $<
 
 # Compile CPP files into object files
 $(BUILD_DIR)/%.o: $(SRC_DIRS)/%.cpp | $(BUILD_DIR)
 	$(info Compiling $< to $@)
-	$(RISCV_CPP) -c -o $@ -march=$(ARCHITECTURE_TYPE) -mabi=ilp32 -mno-strict-align $(OPT_LEVEL) $<
+	@mkdir -p $(dir $@)
+	$(RISCV_CPP) -c -o $@ -march=$(ARCHITECTURE_TYPE) $(CFLAGS) $(OPT_LEVEL) $<
 
 # Assemble assembly files
 $(BUILD_DIR)/%.o: $(SRC_DIRS)/%.S | $(BUILD_DIR)
+	@mkdir -p $(dir $@)
 	$(RISCV_AS) -o $@ --gdwarf-2 -march=$(ARCHITECTURE_TYPE) $^
 
 # Link all sections into a single ELF file
@@ -77,10 +81,10 @@ $(FINAL_ELF): $(OBJ_ASM) $(OBJ_C) $(OBJ_CPP) | $(BUILD_DIR)
 
 # Extract text and data sections
 $(TEXT_TARGET): $(FINAL_ELF)
-	$(RISCV_OBJCOPY) -O binary -j .text $< $@
+	$(RISCV_OBJCOPY) -O binary -j .text* $< $@
 
 $(DATA_TARGET): $(FINAL_ELF)
-	$(RISCV_OBJCOPY) -O binary -j .data $< $@
+	$(RISCV_OBJCOPY) -O binary -j .data* $< $@
 
 # Generate disassembly for debugging
 disassemble: $(FINAL_ELF)

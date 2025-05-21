@@ -12,8 +12,8 @@ SECTIONS
     {       
         *(.text)            
         *(.rodata)               
-    } > FLASH               
-
+    } > FLASH   
+    
     .data :
     {
         _sdata = .;         
