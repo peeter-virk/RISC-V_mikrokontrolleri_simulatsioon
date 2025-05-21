@@ -3,7 +3,6 @@
 // Declare the external assembly function
 extern void test_arithmetic_instructions(uint32_t* result_addr);
 extern void test_csr_registers(uint32_t* result_addr);
-extern void test_memory(uint32_t* result_addr);
 
 void main() {
     uint32_t arithmetic_results[56];
