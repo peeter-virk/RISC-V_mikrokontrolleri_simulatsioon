@@ -12727,10 +12727,12 @@ aaa70713 e7a223 ffffc737 bbb70713 e79223 fcc00713 e78223 1010113
     </comp>
     <comp lib="4" loc="(3170,1870)" name="Register">
       <a name="appearance" val="logisim_evolution"/>
+      <a name="label" val="Andmed"/>
       <a name="width" val="32"/>
     </comp>
     <comp lib="4" loc="(3170,2000)" name="Register">
       <a name="appearance" val="logisim_evolution"/>
+      <a name="label" val="Andmesuund"/>
       <a name="width" val="32"/>
     </comp>
     <comp lib="5" loc="(1750,560)" name="Button">
