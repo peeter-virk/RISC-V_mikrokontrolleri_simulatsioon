@@ -81,7 +81,7 @@ $(FINAL_ELF): $(OBJ_ASM) $(OBJ_C) $(OBJ_CPP) | $(BUILD_DIR)
 
 # Extract text and data sections
 $(TEXT_TARGET): $(FINAL_ELF)
-	$(RISCV_OBJCOPY) -O binary -j .text* $< $@
+	$(RISCV_OBJCOPY) -O binary -j .init -j .text* $< $@
 
 $(DATA_TARGET): $(FINAL_ELF)
 	$(RISCV_OBJCOPY) -O binary -j .data* $< $@
