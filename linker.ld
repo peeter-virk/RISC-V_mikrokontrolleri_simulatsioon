@@ -8,11 +8,16 @@ MEMORY
 
 SECTIONS
 {
+    . = 0x0;
+    .init :
+    {
+        *(.init)
+    }
     .text :
     {       
         *(.text)            
         *(.rodata)               
-    } > FLASH   
+    } > FLASH 
     
     .data :
     {

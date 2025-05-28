@@ -1,19 +1,22 @@
 .extern _ISR
 .extern _RESET
 
-.section .text
+
 .global _start
 .global _RESET
 
 
 
+
 # ISR vector table
+.section .init
 _start:
     .org 0
     j _RESET
     .org 0x4
     j _ISR
 
+.section .text
 _RESET:
     la sp, _stack_top
     csrs mstatus, zero

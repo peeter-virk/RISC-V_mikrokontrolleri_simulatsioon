@@ -168,33 +168,35 @@ test_arithmetic_instructions:
 
     # start of RV32I I type commands
 
-    # TEST024: ADDI 0x5 + 0x7          EXPECTING: 0xC
+    # TEST024: ADDI 0x5 + 0x7           EXPECTING: 0xC
     li t0, 0x5
     addi t2, t0, 0x7
     sw t2, 0(a0)
     addi a0, a0, 4
 
-    # TEST025: SLTI 5 < 10             EXPECTING: 0x1
+    # TEST025: SLTI 5 < 10              EXPECTING: 0x1
     li t0, 5
     slti t2, t0, 10
     sw t2, 0(a0)
     addi a0, a0, 4
 
-    # TEST026: SLTIU 0 < 0xFFFF        EXPECTING: 0x1
+    # TEST026: SLTIU 0 < 200            EXPECTING: 0x1
     li t0, 0
-    sltiu t2, t0, 0xFFFF
+    sltiu t2, t0, 200
     sw t2, 0(a0)
     addi a0, a0, 4
 
-    # TEST027: XORI 0xAAAA5555 ^ 0xFFFF0000  EXPECTING: 0x55555555
+    # TEST027: XOR 0xAAAA5555 ^ 0xFFFF0000    EXPECTING: 0x55555555
     li t0, 0xAAAA5555
-    xori t2, t0, 0xFFFF0000
+    li t1, 0xFFFF0000
+    xor t2, t0, t1
     sw t2, 0(a0)
     addi a0, a0, 4
 
-    # TEST028: ORI 0x00000001 | 0x0000FF00  EXPECTING: 0x0000FF01
+    # TEST028: OR 0x00000001 | 0x0000FF00  EXPECTING: 0x0000FF01
     li t0, 0x1
-    ori t2, t0, 0xFF00
+    li t1, 0xFF00
+    or t2, t0, t1
     sw t2, 0(a0)
     addi a0, a0, 4
 
