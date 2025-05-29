@@ -14,9 +14,6 @@ uint32_t control_transfer_results[20];
 
 void main() {
     
-
-
-    // Pass the address of the first element (correct way)
     test_arithmetic_instructions(arithmetic_results);
     test_csr_registers(arithmetic_results);
     test_memory_instructions(memory_results);
