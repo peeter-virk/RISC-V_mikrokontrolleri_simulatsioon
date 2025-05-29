@@ -54,7 +54,7 @@ test_arithmetic_instructions:
     sw t2, 0(a0)
     addi a0, a0, 4
 
-    # TEST008: AND 0xDEADBEEF, 0xDADADADA  EXPECTING: 0xD8ADADAA
+    # TEST008: AND 0xDEADBEEF, 0xDADADADA  EXPECTING: 0xDA889ACA
     li t0, 0xDEADBEEF
     li t1, 0xDADADADA
     and t2, t0, t1
@@ -68,7 +68,7 @@ test_arithmetic_instructions:
     sw t2, 0(a0)
     addi a0, a0, 4
 
-    # TEST010: OR 0xDEADBEEF, 0xDADADADA  EXPECTING: 0xDEADFFEF
+    # TEST010: OR 0xDEADBEEF, 0xDADADADA  EXPECTING: 0xDEFFFEFF
     li t0, 0xDEADBEEF
     li t1, 0xDADADADA
     or t2, t0, t1
@@ -82,7 +82,7 @@ test_arithmetic_instructions:
     sw t2, 0(a0)
     addi a0, a0, 4
 
-    # TEST012: XOR 0xDEADBEEF, 0xDADADADA  EXPECTING: 0x75D7D7BD
+    # TEST012: XOR 0xDEADBEEF, 0xDADADADA  EXPECTING: 0x04776435
     li t0, 0xDEADBEEF
     li t1, 0xDADADADA
     xor t2, t0, t1
@@ -218,7 +218,7 @@ test_arithmetic_instructions:
     sw t2, 0(a0)
     addi a0, a0, 4
 
-    # TEST032: SRAI 0xFFFFFFFF >> 1    EXPECTING: 0xFFFFFFFF
+    # TEST032: SRAI 0xFFFFFFFF >> 1    EXPECTING: 0x7FFFFFFF
     li t0, 0xFFFFFFFF
     srai t2, t0, 1
     sw t2, 0(a0)

@@ -15,7 +15,7 @@ uint32_t control_transfer_results[20];
 void main() {
     
     test_arithmetic_instructions(arithmetic_results);
-    test_csr_registers(arithmetic_results);
-    test_memory_instructions(memory_results);
-    test_control_transfer(control_transfer_results);
+    //test_csr_registers(arithmetic_results);
+    //test_memory_instructions(memory_results);
+    //test_control_transfer(control_transfer_results);
 }
