@@ -200,6 +200,9 @@ jump_target:
     li t2, 0x44
     j after_jal
 
+.section .text._ISR
+.global _ISR
+.type _ISR, @function
 _ISR:
     csrr t0, mcause
     la   t1, 0x2000
