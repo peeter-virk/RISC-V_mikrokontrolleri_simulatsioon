@@ -18,6 +18,7 @@
         sw t2, 4(a0)
         sw t3, 8(a0)
         sw t4, 12(a0)
+        csrw mstatus, t2
         addi a0, a0, 16
 
         # Test002: misa (0x301) – read-only
@@ -42,19 +43,21 @@
         sw t2, 4(a0)
         sw t3, 8(a0)
         sw t4, 12(a0)
+        csrw mie, t2
         addi a0, a0, 16
 
-        # Test004: mtvec (0x305) – read/write
-        li t1, 0x305
-        csrr t2, mtvec
-        li t3, 0x00001000
-        csrw mtvec, t3
-        csrr t4, mtvec
-        sw t1, 0(a0)
-        sw t2, 4(a0)
-        sw t3, 8(a0)
-        sw t4, 12(a0)
-        addi a0, a0, 16
+# Test004: mtvec (0x305) – read/write
+        li   t1, 0x305          
+        csrr t2, mtvec          
+        li   t3, 0x00001000    
+        csrw mtvec, t3          
+        csrr t4, mtvec          
+        sw   t1, 0(a0)          
+        sw   t2, 4(a0)  
+        sw   t3, 8(a0)  
+        sw   t4, 12(a0)     
+        csrw mtvec, t2    
+        addi a0, a0, 16    
 
         # Test005: mepc (0x341) – read/write
         li t1, 0x341
@@ -66,7 +69,9 @@
         sw t2, 4(a0)
         sw t3, 8(a0)
         sw t4, 12(a0)
+        csrw mepc, t2
         addi a0, a0, 16
+
 
         # Test006: mcause (0x342) – read/write
         li t1, 0x342
@@ -78,6 +83,7 @@
         sw t2, 4(a0)
         sw t3, 8(a0)
         sw t4, 12(a0)
+        csrw mcause, t2
         addi a0, a0, 16
 
         # Test007: mip (0x344) – read-only
@@ -114,6 +120,7 @@
         sw t2, 4(a0)
         sw t3, 8(a0)
         sw t4, 12(a0)
+        csrw mscratch, t2    
         addi a0, a0, 16
 
         # Test010: mvendorid (0xF11) – read-only
