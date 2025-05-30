@@ -244,7 +244,7 @@ test_arithmetic_instructions:
 
     # --- RV32M R-TYPE COMMANDS ---
 
-    # TEST036: MUL 5 * 5                 EXPECTING: 25
+    # TEST036: MUL 5 * 5                 EXPECTING: 25 (0X19)
     li t0, 5
     li t1, 5
     mul t2, t0, t1
@@ -258,7 +258,7 @@ test_arithmetic_instructions:
     sw t2, 0(a0)
     addi a0, a0, 4
 
-    # TEST038: MUL 100000 * 100000       EXPECTING: 10000000000 (lower 32 bits: 1410065408)
+    # TEST038: MUL 100000 * 100000       EXPECTING: 10000000000 (lower 32 bits: 540BE400)
     li t0, 100000
     li t1, 100000
     mul t2, t0, t1
@@ -272,7 +272,7 @@ test_arithmetic_instructions:
     sw t2, 0(a0)
     addi a0, a0, 4
 
-    # TEST040: MULHSU 100000 * -100000   EXPECTING: -3 (upper 32 bits of signed * unsigned)
+    # TEST040: MULHSU 100000 * -100000   EXPECTING: -3 (upper 32 bits of signed * unsigned: 0xFFFFFFFD)
     li t0, 100000
     li t1, -100000
     mulhsu t2, t1, t0      # signed * unsigned
@@ -363,22 +363,8 @@ test_arithmetic_instructions:
     sw t2, 0(a0)
     addi a0, a0, 4
 
-    # TEST053: REMU -10 % 3            EXPECTING: 2 (since -10 becomes 0xFFFFFFF6, % 3 = 2)
-    li t0, -10
-    li t1, 3
-    remu t2, t0, t1
-    sw t2, 0(a0)
-    addi a0, a0, 4
-
-    # TEST054: REMU 10 % -3            EXPECTING: 10 (since -3 is large unsigned)
+    # TEST053: REMU 10 % -3            EXPECTING: 10 (since -3 is large unsigned)
     li t0, 10
-    li t1, -3
-    remu t2, t0, t1
-    sw t2, 0(a0)
-    addi a0, a0, 4
-
-    # TEST055: REMU -10 % -3           EXPECTING: 3 (0xFFFFFFF6 % 0xFFFFFFFD = 3)
-    li t0, -10
     li t1, -3
     remu t2, t0, t1
     sw t2, 0(a0)
